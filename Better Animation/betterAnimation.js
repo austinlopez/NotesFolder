@@ -79,21 +79,77 @@ class Ball {
     }
     this.draw();
   }
+  setDirection(direct){
+    //member function
+    //description: This function changes the ball's direction
+    //Input: movementDirection
+    //Output: none
+    this.direction = direct;
+  }
+  checkLoop(){
+  }
 }
 
 //functions
 function animate(){ //loops for the animation
   b.move();
-}
-
-function animateDown(){
-  b.direction = movementDirection.DOWN;
-  b.move();
+  document.getElementById("x").innerHTML = "x:" + b.x;
+  document.getElementById("y").innerHTML = "y:" + b.y;
+  document.getElementById("radius").innerHTML = "radius:" + b.radius;
 }
 
 var b = new Ball(50,50,70,"red",1,movementDirection.RIGHT)
-//window.setInterval(animate,100);
-window.setInterval(animateDown,100);
+window.setInterval(animate,10);
+
+window.addEventListener("keydown",eventHandler);
+function eventHandler(event){
+  var keyCode = event.keyCode;
+  switch(keyCode){
+    case 37: //left arrow keyCode
+    b.setDirection(movementDirection.LEFT);
+    break;
+    case 38: //up arrow keyCode
+    b.setDirection(movementDirection.UP);
+    break;
+    case 39: //right arrow keyCode
+    b.setDirection(movementDirection.RIGHT);
+    break;
+    case 40: //down arrow keyCode
+    b.setDirection(movementDirection.DOWN);
+    break;
+    case 65: //a
+    if (b.speed > 0){
+    b.speed -= 1;
+    }
+    break;
+    case 68: //d
+    b.speed += 1;
+    break;
+    case 83: //s
+    if (b.radius > 5){
+      b.radius -= 1;
+    }
+    break;
+    case 87: //w
+    b.radius += 1;
+    break;
+    default:
+    break;
+  }
+}
 
 
-console.log("Yes");
+/*window.addEventListener('mousemove', function (e) {
+  b.newx = e.pageX;
+  b.newy = e.pageY;
+})
+function update(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  b.draw();
+  if (b.newx && b.newy) {
+        b.x = b.newx;
+        b.y = b.newy;
+    }
+}
+window.setInterval(update,1);
+*/
