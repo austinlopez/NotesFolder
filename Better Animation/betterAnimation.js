@@ -115,11 +115,11 @@ function animate(){ //loops for the animation
     ballList[i].checkLoop();
   }
   count++;
-  if (ballList.length < 1000) {
+  if (ballList.length < 500) {  //Maximum number of Shapes in array
     if(count % 1 == 0){
       //ballList.push(new Ball(30,0,10,"red",1,movementDirection.DOWN));
       ballList.push(new Ball(Math.floor(Math.random()*800),Math.floor(Math.random()*400),Math.floor(Math.random()*50),randomColor(),Math.floor(Math.random()*20+1),movementDirection.DOWN));
-    }
+    } //All the random values of width, height, speed, and color
   }
   document.getElementById("x").innerHTML = "x:" + b.x;
   document.getElementById("y").innerHTML = "y:" + b.y;
@@ -172,20 +172,39 @@ function eventHandler(event){
     if (b.speed > 0){
     b.speed -= 1;
     }
+    for (var i = 0; i < ballList.length; i++) {
+      if (ballList[i].speed > 0){
+      ballList[i].speed -= 1;
+      }
+    }
     break;
     case 68: //d
     b.speed += 1;
+    for (var i = 0; i < ballList.length; i++) {
+      ballList[i].speed += 1;
+    }
     break;
     case 83: //s
     if (b.radius > 5){
       b.radius -= 1;
     }
+    for (var i = 0; i < ballList.length; i++) {
+      if (ballList[i].radius > 2){
+      ballList[i].radius -= 1;
+      }
+    }
     break;
     case 87: //w
     b.radius += 1;
+    for (var i = 0; i < ballList.length; i++) {
+      ballList[i].radius += 1;
+    }
     break;
     case 32:
     b.speed = 0;
+    for (var i = 0; i < ballList.length; i++) {
+      ballList[i].speed = 0;
+    }
     break;
     default:
     break;
