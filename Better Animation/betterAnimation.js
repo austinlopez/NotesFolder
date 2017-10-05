@@ -87,15 +87,21 @@ class Ball {
     this.direction = direct;
   }
   checkLoop(){
+    if (this.x > (canvas.width+this.radius)){this.x = (0-this.radius)}
+    if (this.x < (0-this.radius)){this.x = (canvas.width+this.radius)}
+    if (this.y > (canvas.height+this.radius)){this.y = (0-this.radius)}
+    if (this.y < (0-this.radius)){this.y = (canvas.height+this.radius)}
   }
 }
 
 //functions
 function animate(){ //loops for the animation
   b.move();
+  b.checkLoop();
   document.getElementById("x").innerHTML = "x:" + b.x;
   document.getElementById("y").innerHTML = "y:" + b.y;
   document.getElementById("radius").innerHTML = "radius:" + b.radius;
+  document.getElementById("speed").innerHTML = "Speed:" + b.speed;
 }
 
 var b = new Ball(50,50,70,"red",1,movementDirection.RIGHT)
@@ -132,6 +138,9 @@ function eventHandler(event){
     break;
     case 87: //w
     b.radius += 1;
+    break;
+    case 32:
+    b.speed = 0;
     break;
     default:
     break;
